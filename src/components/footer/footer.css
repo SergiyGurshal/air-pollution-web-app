@@ -1,0 +1,42 @@
+.footer {
+  height: 10%;
+  width: 100%;
+  border-top: 1px solid #888888;
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding-bottom: 0.5rem;
+}
+
+.footer__copyright {
+  margin: 0;
+  margin-top: 1rem;
+  text-align: center;
+  font-size: 1rem;
+}
+
+.footer__social-media-linkicons {
+  display: flex;
+  justify-content: center;
+  margin-top: 0.4rem;
+}
+
+.social-media-linkicons_link > img {
+  width: 1.3rem;
+  margin: 0 0.3rem;
+}
+
+.footer__license-title {
+  position: absolute;
+  padding: 0.5rem 0.3rem;
+  right: 0;
+  bottom: 0;
+  color: #bdbdbd;
+}
+
+.footer__license-title > a {
+  color: #bdbdbd;
+}
