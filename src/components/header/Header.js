@@ -20,7 +20,7 @@ const Header = () => {
   const [curCity, setCurCity] = useState('')
 
   useEffect(() => {
-    fetch('http://api.airvisual.com/v2/countries?key=f2a437c2-fbc6-4858-b197-05eb662afb20')
+    fetch('https://api.airvisual.com/v2/countries?key=f2a437c2-fbc6-4858-b197-05eb662afb20')
       .then((response) => response.text())
       .then((obj) => JSON.parse(obj).data)
       .then((data) => setCountries(data))
@@ -28,7 +28,7 @@ const Header = () => {
   }, [])
 
   const getStates = (country) => {
-    fetch(`http://api.airvisual.com/v2/states?country=${country}&key=f2a437c2-fbc6-4858-b197-05eb662afb20`)
+    fetch(`https://api.airvisual.com/v2/states?country=${country}&key=f2a437c2-fbc6-4858-b197-05eb662afb20`)
       .then((response) => response.text())
       .then((obj) => JSON.parse(obj).data)
       .then((data) => setStates(data))
@@ -36,7 +36,7 @@ const Header = () => {
   }
 
   const getCities = (country, state) => {
-    fetch(`http://api.airvisual.com/v2/cities?state=${state}&country=${country}&key=f2a437c2-fbc6-4858-b197-05eb662afb20`)
+    fetch(`https://api.airvisual.com/v2/cities?state=${state}&country=${country}&key=f2a437c2-fbc6-4858-b197-05eb662afb20`)
       .then((response) => response.text())
       .then((obj) => JSON.parse(obj).data)
       .then((data) => setCities(data))
