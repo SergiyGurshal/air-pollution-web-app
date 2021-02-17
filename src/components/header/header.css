@@ -17,3 +17,26 @@
   justify-content: space-around;
   align-items: center;
 }
+
+@media only screen and (max-width: 950px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    height: max-content;
+  }
+
+  .header__dropdowns {
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  .header__logocontainer {
+    display: flex;
+    align-items: center;
+  }
+
+  .header__title {
+    font-size: 2rem;
+    color: #4c4c4c;
+  }
+}

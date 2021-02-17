@@ -30,6 +30,7 @@
 }
 
 .footer__license-title {
+  font-size: 0.8rem;
   position: absolute;
   padding: 0.5rem 0.3rem;
   right: 0;
@@ -39,4 +40,10 @@
 
 .footer__license-title > a {
   color: #bdbdbd;
+}
+
+@media only screen and (max-width: 600px) {
+  .footer__social-media-linkicons {
+    margin-bottom: 1rem;
+  }
 }

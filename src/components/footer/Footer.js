@@ -13,7 +13,7 @@ const Footer = () => {
         <a href="mailto: seergiygurshall@gmail.com" className="social-media-linkicons_link" target="_blank">
           <img src={mailIcon} alt="email icon" />
         </a>
-        <a href="" className="social-media-linkicons_link" target="_blank">
+        <a href="https://github.com/SergiyGurshal/air-pollution-web-app" className="social-media-linkicons_link" target="_blank">
           <img src={githubIcon} alt="github icon" />
         </a>
         <a href="https://www.linkedin.com/in/sergiy-gurshal/" className="social-media-linkicons_link" target="_blank">
