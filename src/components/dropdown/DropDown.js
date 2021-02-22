@@ -1,47 +1,59 @@
 import React, { useState, useRef, useEffect } from 'react'
 
 import './dropdown.css'
+import { useDropdown } from './dropodown-context'
 
-const DropDown = ({ title, items, changePosition }) => {
+const DropDown = ({ title, items, type }) => {
   const [open, setOpen] = useState(false)
 
   const dropdown = useRef()
+  const dropdownContext = useDropdown()
 
   useEffect(() => {
-    document.addEventListener('mousedown', handleClick)
+    document.addEventListener('mousedown', onOutsideClick)
     return () => {
-      document.removeEventListener('mousedown', handleClick)
+      document.removeEventListener('mousedown', onOutsideClick)
     }
   }, [])
 
-  const handleClick = (e) => {
+  const onOutsideClick = (e) => {
     if (!dropdown.current.contains(e.target)) {
       setOpen(false)
     }
   }
 
-  const openDropdown = () => {
-    setOpen(!open)
+  const onItemSelectHandler = (e) => {
+    setOpen(false)
+    switch (type) {
+      case 'country':
+        dropdownContext.setCurCountry(e.target.textContent)
+        break
+      case 'state':
+        dropdownContext.setCurState(e.target.textContent)
+        break
+      case 'city':
+        dropdownContext.setCurCity(e.target.textContent)
+        break
+    }
   }
 
-  const onItemSelectHandler = (e) => {
-    const listItem = e.target
-    const dropdownWrapper = listItem.closest('.dropdown__wrapper')
-    const dropdownContainer = dropdownWrapper.getElementsByClassName('dropdown__container')[0]
-    const containerTitle = dropdownContainer.getElementsByClassName('container__title')[0]
-
-    containerTitle.textContent = listItem.textContent
-
-    setOpen(false)
-    changePosition(e.target.textContent)
+  const getSelectedValue = () => {
+    switch (type) {
+      case 'country':
+        return dropdownContext.curCountry
+      case 'state':
+        return dropdownContext.curState
+      case 'city':
+        return dropdownContext.curCity
+    }
   }
 
   return (
     <div className="dropdown">
       <h3 className="dropdown__lable unselectable">{title}</h3>
       <div className="dropdown__wrapper" ref={dropdown}>
-        <div className="dropdown__container" onClick={openDropdown}>
-          <p className="container__title unselectable">Select...</p>
+        <div className="dropdown__container" onClick={() => setOpen(!open)}>
+          <p className="container__title unselectable">{getSelectedValue()}</p>
           <p className={open ? 'container__arrow--rotated unselectable' : 'container__arrow unselectable'}>&#9660;</p>
         </div>
         {open && (

@@ -1,6 +1,30 @@
 .card {
-  border-radius: 3rem;
+  border-radius: 1rem;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   width: 25rem;
   height: 30rem;
+}
+
+.card__title {
+  text-align: center;
+  font-size: 2rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid #c4c4c4;
+  color: #4c4c4c;
+}
+
+.card__content {
+  height: 22rem;
+}
+
+.card__footer {
+  height: 4rem;
+  border-top: 1px solid #c4c4c4;
+}
+
+@media only screen and (max-width: 950px), only screen and (max-height: 650px) {
+  .card {
+    max-width: 90%;
+    margin: 2rem 0;
+  }
 }

@@ -1,0 +1,35 @@
+.card__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-height: 100%;
+  width: 100%;
+}
+
+.content__icon {
+  width: 12rem;
+  margin-top: 1rem;
+}
+
+.content__title {
+  font-size: 1.6rem;
+  font-weight: 300;
+  margin-top: 0.5rem;
+}
+
+.content__aditional-info {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  max-height: 5rem;
+  width: inherit;
+  margin-top: 2rem;
+  margin-left: 1rem;
+}
+
+.aditional-info__text {
+  flex: 0 0 50%;
+  padding: 0.5rem;
+  font-size: 0.8rem;
+  color: #858585;
+}
