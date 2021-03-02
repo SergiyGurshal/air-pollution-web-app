@@ -42,7 +42,6 @@ const AirPolutionContent = () => {
     let cardStyles = cardContent.current.parentElement.style
     switch (true) {
       case pollutionLevel < 51:
-        console.log('a')
         cardStyles.boxShadow = `0 4px 8px 0 rgba(96, 118, 49, 0.2), 0 6px 20px 0 rgba(96, 118, 49, 0.19)`
         setImage(require(`../../../images/face_icons/ic-face-green.svg`).default)
         setTitle('Good')

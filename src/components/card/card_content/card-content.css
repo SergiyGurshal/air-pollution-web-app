@@ -12,6 +12,7 @@
 }
 
 .content__title {
+  text-align: center;
   font-size: 1.6rem;
   font-weight: 300;
   margin-top: 0.5rem;
