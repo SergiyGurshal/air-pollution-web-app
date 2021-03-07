@@ -1,42 +1,16 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { useDropdown } from '../../dropdown/dropodown-context'
+import { connect } from 'react-redux'
+import loadingGif from '../../../images/loading.svg'
 
 import './card-content.css'
 
-const AirPolutionContent = () => {
-  const [image, setImage] = useState(null)
-  const [title, setTitle] = useState('')
-  const [AQIUS, setAQIUS] = useState(null)
-  const [AQICN, setAQICN] = useState(null)
+const AirPolutionContent = ({ pollutionInfo }) => {
+  const [image, setImage] = useState(loadingGif)
+  const [title, setTitle] = useState('loading...')
+  const [AQIUS, setAQIUS] = useState('loading...')
+  const [AQICN, setAQICN] = useState('loading...')
 
   const cardContent = useRef(null)
-  const dropdownContext = useDropdown()
-
-  const getPolutionByCurrentIP = () => {
-    fetch('https://api.airvisual.com/v2/nearest_city?key=f2a437c2-fbc6-4858-b197-05eb662afb20')
-      .then((response) => response.text())
-      .then((obj) => JSON.parse(obj).data)
-      .then((data) => {
-        setAQIUS(data.current.pollution.aqius)
-        setAQICN(data.current.pollution.aqicn)
-        setBoxShadowGetIcon(data.current.pollution.aqius)
-      })
-      .catch((error) => console.log('error', error))
-  }
-
-  const getPolutionByLocation = () => {
-    fetch(
-      `https://api.airvisual.com/v2/city?city=${dropdownContext.curCity}&state=${dropdownContext.curState}&country=${dropdownContext.curCountry}&key=f2a437c2-fbc6-4858-b197-05eb662afb20`
-    )
-      .then((response) => response.text())
-      .then((obj) => JSON.parse(obj).data)
-      .then((data) => {
-        setAQIUS(data.current.pollution.aqius)
-        setAQICN(data.current.pollution.aqicn)
-        setBoxShadowGetIcon(data.current.pollution.aqius)
-      })
-      .catch((error) => console.log('error', error))
-  }
 
   const setBoxShadowGetIcon = (pollutionLevel) => {
     let cardStyles = cardContent.current.parentElement.style
@@ -74,17 +48,15 @@ const AirPolutionContent = () => {
     }
   }
 
-  useEffect(() => {
-    getPolutionByCurrentIP()
-  }, [])
+  const setPolutionInfo = (data) => {
+    setAQIUS(data.aqius)
+    setAQICN(data.aqicn)
+    setBoxShadowGetIcon(pollutionInfo.aqius)
+  }
 
   useEffect(() => {
-    if (dropdownContext.curCity === 'Select...') {
-      getPolutionByCurrentIP()
-    } else {
-      getPolutionByLocation()
-    }
-  }, [dropdownContext.curCity])
+    setPolutionInfo(pollutionInfo)
+  }, [pollutionInfo])
 
   return (
     <div className="card__content" ref={cardContent}>
@@ -98,4 +70,6 @@ const AirPolutionContent = () => {
   )
 }
 
-export default AirPolutionContent
+const getStateToProps = (state) => ({ pollutionInfo: state.enviromentInfo.current.pollution })
+
+export default connect(getStateToProps)(AirPolutionContent)

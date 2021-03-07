@@ -1,65 +1,35 @@
 import React, { useEffect, useState } from 'react'
-import { useDropdown } from '../../dropdown/dropodown-context'
+import { connect } from 'react-redux'
+import loadingGif from '../../../images/loading.svg'
 
 import './card-content.css'
 
 const getIcon = (icon_type) => {
+  const gifTemplate = /.*.svg/
+  if (gifTemplate.exec(icon_type)) return icon_type
   return require(`../../../images/weather_icons/${icon_type}.png`).default
 }
 
-const WeatherContent = () => {
-  const [image, setImage] = useState('01d')
+const WeatherContent = ({ weatherInfo }) => {
+  const [image, setImage] = useState(loadingGif)
   const [temperature, setTemperature] = useState('loading...')
   const [pressure, setPressure] = useState('loading...')
   const [humidity, setHumidity] = useState('loading...')
   const [windSpeed, setWindSpeed] = useState('loading...')
   const [windDirection, setWindDirection] = useState('loading...')
 
-  const dropdownContext = useDropdown()
-
-  const getWeatherByCurrentIP = () => {
-    fetch('https://api.airvisual.com/v2/nearest_city?key=f2a437c2-fbc6-4858-b197-05eb662afb20')
-      .then((response) => response.text())
-      .then((obj) => JSON.parse(obj).data)
-      .then((data) => {
-        setImage(data.current.weather.ic)
-        setTemperature(data.current.weather.tp)
-        setPressure(data.current.weather.pr)
-        setHumidity(data.current.weather.hu)
-        setWindSpeed(data.current.weather.ws)
-        setWindDirection(data.current.weather.wd)
-      })
-      .catch((error) => console.log('error', error))
-  }
-
-  const getWeatherByLocation = () => {
-    fetch(
-      `https://api.airvisual.com/v2/city?city=${dropdownContext.curCity}&state=${dropdownContext.curState}&country=${dropdownContext.curCountry}&key=f2a437c2-fbc6-4858-b197-05eb662afb20`
-    )
-      .then((response) => response.text())
-      .then((obj) => JSON.parse(obj).data)
-      .then((data) => {
-        setImage(data.current.weather.ic)
-        setTemperature(data.current.weather.tp)
-        setPressure(data.current.weather.pr)
-        setHumidity(data.current.weather.hu)
-        setWindSpeed(data.current.weather.ws)
-        setWindDirection(data.current.weather.wd)
-      })
-      .catch((error) => console.log('error', error))
+  const setWeatherInfo = (weatherInfo) => {
+    if (weatherInfo.ic) setImage(weatherInfo.ic)
+    setTemperature(weatherInfo.tp)
+    setPressure(weatherInfo.pr)
+    setHumidity(weatherInfo.hu)
+    setWindSpeed(weatherInfo.ws)
+    setWindDirection(weatherInfo.wd)
   }
 
   useEffect(() => {
-    getWeatherByCurrentIP()
-  }, [])
-
-  useEffect(() => {
-    if (dropdownContext.curCity === 'Select...') {
-      getWeatherByCurrentIP()
-    } else {
-      getWeatherByLocation()
-    }
-  }, [dropdownContext.curCity])
+    setWeatherInfo(weatherInfo)
+  }, [weatherInfo])
 
   return (
     <div className="card__content">
@@ -75,4 +45,6 @@ const WeatherContent = () => {
   )
 }
 
-export default WeatherContent
+const getStateToProps = (state) => ({ weatherInfo: state.enviromentInfo.current.weather })
+
+export default connect(getStateToProps)(WeatherContent)

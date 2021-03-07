@@ -13,9 +13,10 @@ video {
   position: fixed;
   top: 0;
   left: 0;
+  z-index: -1;
 }
 
-@media only screen and (max-width: 950px), only screen and (max-height: 650px) {
+@media only screen and (max-width: 970px), only screen and (max-height: 650px) {
   .main-content {
     flex-direction: column;
     margin: 3rem 0;

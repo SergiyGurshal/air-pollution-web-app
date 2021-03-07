@@ -1,18 +1,20 @@
-import React from 'react'
-
+import React, { useState } from 'react'
 import './footer.css'
 import mailIcon from '../../images/social_media_icons/mail.svg'
 import githubIcon from '../../images/social_media_icons/github.svg'
 import linkedinIcon from '../../images/social_media_icons/linkedin.svg'
+import FeedbackForm from '../feedback-form-modal/FeedbackForm'
 
 const Footer = () => {
+  const [openModal, setOpenModal] = useState(false)
   return (
     <footer className="footer">
+      {openModal && <FeedbackForm setOpen={setOpenModal} />}
       <h6 className="footer__copyright">Copyright © 2021 </h6>
       <div className="footer__social-media-linkicons">
-        <a href="mailto: seergiygurshall@gmail.com" className="social-media-linkicons_link" target="_blank">
+        <div className="social-media-linkicons_link" onClick={(e) => setOpenModal(!openModal)}>
           <img src={mailIcon} alt="email icon" />
-        </a>
+        </div>
         <a href="https://github.com/SergiyGurshal/air-pollution-web-app" className="social-media-linkicons_link" target="_blank">
           <img src={githubIcon} alt="github icon" />
         </a>
