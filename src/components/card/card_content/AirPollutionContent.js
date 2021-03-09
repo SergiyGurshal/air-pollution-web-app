@@ -4,7 +4,7 @@ import loadingGif from '../../../images/loading.svg'
 
 import './card-content.css'
 
-const AirPolutionContent = ({ pollutionInfo }) => {
+const AirPollutionContent = ({ pollutionInfo }) => {
   const [image, setImage] = useState(loadingGif)
   const [title, setTitle] = useState('loading...')
   const [AQIUS, setAQIUS] = useState('loading...')
@@ -48,18 +48,18 @@ const AirPolutionContent = ({ pollutionInfo }) => {
     }
   }
 
-  const setPolutionInfo = (data) => {
+  const setPollutionInfo = (data) => {
     setAQIUS(data.aqius)
     setAQICN(data.aqicn)
     setBoxShadowGetIcon(pollutionInfo.aqius)
   }
 
   useEffect(() => {
-    setPolutionInfo(pollutionInfo)
+    setPollutionInfo(pollutionInfo)
   }, [pollutionInfo])
 
   return (
-    <div className="card__content" ref={cardContent}>
+    <div className="card__content unselectable" ref={cardContent}>
       <img src={image} className="content__icon" />
       <p className="content__title">{title}</p>
       <div className="content__aditional-info">
@@ -72,4 +72,4 @@ const AirPolutionContent = ({ pollutionInfo }) => {
 
 const getStateToProps = (state) => ({ pollutionInfo: state.enviromentInfo.current.pollution })
 
-export default connect(getStateToProps)(AirPolutionContent)
+export default connect(getStateToProps)(AirPollutionContent)

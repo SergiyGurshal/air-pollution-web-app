@@ -32,9 +32,9 @@ const WeatherContent = ({ weatherInfo }) => {
   }, [weatherInfo])
 
   return (
-    <div className="card__content">
+    <div className="card__content unselectable">
       <img src={getIcon(image)} className="content__icon" />
-      <p className="content__title">{`+${temperature}°C`}</p>
+      <p className="content__title">{`${temperature}°C`}</p>
       <div className="content__aditional-info">
         <p className="aditional-info__text">{`Pressure: ${pressure} hPa`}</p>
         <p className="aditional-info__text">{`Humidity: ${humidity}%`} </p>

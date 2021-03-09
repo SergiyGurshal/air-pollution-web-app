@@ -8,7 +8,7 @@ import FeedbackForm from '../feedback-form-modal/FeedbackForm'
 const Footer = () => {
   const [openModal, setOpenModal] = useState(false)
   return (
-    <footer className="footer">
+    <footer className="footer unselectable">
       {openModal && <FeedbackForm setOpen={setOpenModal} />}
       <h6 className="footer__copyright">Copyright © 2021 </h6>
       <div className="footer__social-media-linkicons">

@@ -7,7 +7,7 @@ import logo from '../../images/logo/logo.svg'
 const Header = () => {
   return (
     <header className="header">
-      <div className="header__logo-container">
+      <div className="header__container">
         <img src={logo} alt="logo" className="header__logo" />
         <h1 className="header__title">AirMonitor</h1>
       </div>

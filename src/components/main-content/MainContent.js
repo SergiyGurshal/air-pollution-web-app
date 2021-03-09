@@ -9,7 +9,6 @@ import './main-content.css'
 
 const MainContent = ({ location, fetchEnviromentInfo }) => {
   useEffect(() => {
-    console.log(location.city)
     if (location.city === 'Select...') {
       fetchEnviromentInfo('https://api.airvisual.com/v2/nearest_city?key=f2a437c2-fbc6-4858-b197-05eb662afb20')
     } else {
@@ -22,7 +21,7 @@ const MainContent = ({ location, fetchEnviromentInfo }) => {
   return (
     <div className="main-content">
       <Card {...{ title: 'Weather' }} />
-      <Card {...{ title: 'Air Polution' }} />
+      <Card {...{ title: 'Air Pollution' }} />
       <video playsInline autoPlay muted loop poster="polina.jpg" id="bgvid">
         <source src={backgroundVideo} type="video/mp4" />
       </video>

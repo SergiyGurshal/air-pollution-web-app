@@ -27,6 +27,7 @@
 .social-media-linkicons_link > img {
   width: 1.3rem;
   margin: 0 0.3rem;
+  cursor: pointer;
 }
 
 .footer__license-title {
