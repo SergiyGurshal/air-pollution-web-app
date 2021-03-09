@@ -35,7 +35,7 @@ const DropDown = (props) => {
 
   useEffect(() => {
     if (type === 'country') {
-      setAccessableCountries('http://api.airvisual.com/v2/countries?key=f2a437c2-fbc6-4858-b197-05eb662afb20')
+      setAccessableCountries('https://api.airvisual.com/v2/countries?key=f2a437c2-fbc6-4858-b197-05eb662afb20')
     }
 
     document.addEventListener('mousedown', onOutsideClick)
