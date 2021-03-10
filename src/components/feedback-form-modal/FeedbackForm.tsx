@@ -1,17 +1,31 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect, FunctionComponent, MouseEvent, Dispatch } from 'react'
 
-import './feedback-form.css'
+const css = require('./feedback-form.css')
 
-const FeedbackForm = ({ setOpen }) => {
+type FeedbackFormProps = {
+  setOpen: Dispatch<React.SetStateAction<boolean>>
+}
+
+const FeedbackForm: FunctionComponent<FeedbackFormProps> = ({ setOpen }: FeedbackFormProps) => {
   const [subject, setSubject] = useState('')
   const [body, setBody] = useState('')
 
-  const modal = useRef()
+  const modal = useRef<HTMLDivElement>(null)
 
-  const submitForm = (e) => {
+  const submitForm = (e: any) => {
     e.preventDefault()
     window.open(`mailto:seergiygurshall@gmail.com?subject=${subject}&body=${body}`)
     setOpen(false)
+  }
+
+  const onOutsideClick = (e: any) => {
+    console.log(e)
+
+    if (null !== modal.current) {
+      if (!modal.current.contains(e.target)) {
+        setOpen(false)
+      }
+    }
   }
 
   useEffect(() => {
@@ -20,12 +34,6 @@ const FeedbackForm = ({ setOpen }) => {
       document.removeEventListener('mousedown', onOutsideClick)
     }
   }, [])
-
-  const onOutsideClick = (e) => {
-    if (!modal.current.contains(e.target)) {
-      setOpen(false)
-    }
-  }
 
   return (
     <div className="feedback-form">
@@ -43,8 +51,8 @@ const FeedbackForm = ({ setOpen }) => {
           />
           <textarea
             id="message"
-            cols="30"
-            rows="10"
+            cols={30}
+            rows={10}
             placeholder="Message"
             className="feedback-form__input feedback-form__textarea"
             onChange={(e) => setBody(e.target.value)}

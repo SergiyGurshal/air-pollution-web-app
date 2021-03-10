@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
-import './footer.css'
 import mailIcon from '../../images/social_media_icons/mail.svg'
 import githubIcon from '../../images/social_media_icons/github.svg'
 import linkedinIcon from '../../images/social_media_icons/linkedin.svg'
 import FeedbackForm from '../feedback-form-modal/FeedbackForm'
+
+const css = require('./footer.css')
 
 const Footer = () => {
   const [openModal, setOpenModal] = useState(false)

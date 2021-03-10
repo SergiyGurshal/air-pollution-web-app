@@ -2,9 +2,9 @@ import React from 'react'
 import WeatherContent from './card_content/WetherContent'
 import AirPollutionContent from './card_content/AirPollutionContent'
 
-import './card.css'
+const css = require('./card.css')
 
-const Card = ({ title }) => {
+const Card = ({ title }: { title: string }) => {
   return (
     <div className="card">
       <h1 className="card__title unselectable">{title}</h1>

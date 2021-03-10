@@ -1,5 +1,5 @@
-import React, { useState, useRef, useEffect } from 'react'
-
+import React, { useState, useRef, useEffect, FC, MouseEvent } from 'react'
+import { connect } from 'react-redux'
 import setAccessableCountries from '../../redux/actions/set-accesseble-countries'
 import setAccessableStates from '../../redux/actions/set-accesseble-states'
 import setAccessableCities from '../../redux/actions/set-accesseble-cities'
@@ -7,12 +7,43 @@ import setCountry from '../../redux/actions/set-country'
 import setState from '../../redux/actions/set-state'
 import setCity from '../../redux/actions/set-city'
 
-import './dropdown.css'
-import { connect } from 'react-redux'
+const css = require('./dropdown.css')
 
 const DROPDOWN_PLACEHOLDER = 'Select...'
 
-const DropDown = (props) => {
+interface location {
+  country: string
+  state: string
+  city: string
+}
+
+interface accessableLocations {
+  countries?: {
+    country: string
+  }[]
+  states?: {
+    state: string
+  }[]
+  cities?: {
+    city: string
+  }[]
+  message?: string
+}
+
+interface DropDownProps {
+  title: string
+  type: string
+  setAccessableCities: any
+  setAccessableStates: any
+  setAccessableCountries: any
+  setCity: any
+  setState: any
+  setCountry: any
+  location: location
+  accessableLocations: accessableLocations
+}
+
+const DropDown: FC<DropDownProps> = (props) => {
   const { title, type } = props
   const { setAccessableCities, setAccessableStates, setAccessableCountries } = props
   const { setCity, setState, setCountry } = props
@@ -31,7 +62,7 @@ const DropDown = (props) => {
 
   const [open, setOpen] = useState(false)
   const [accesibleLocations, setAccesibleLocations] = useState(getAccessibleLocations())
-  const dropdownWrapper = useRef()
+  const dropdownWrapper = useRef(document.createElement('div'))
 
   useEffect(() => {
     if (type === 'country') {
@@ -45,18 +76,20 @@ const DropDown = (props) => {
   }, [])
 
   const openDropdownHandler = () => {
-    const dropdown = dropdownWrapper.current.parentElement
-    open ? (dropdown.style.zIndex = '999') : (dropdown.style.zIndex = '10000')
+    if (dropdownWrapper?.current?.parentElement?.style.zIndex) {
+      const dropdown = dropdownWrapper.current.parentElement
+      open ? (dropdown.style.zIndex = '999') : (dropdown.style.zIndex = '10000')
+    }
   }
 
-  const onOutsideClick = (e) => {
+  const onOutsideClick = (e: any) => {
     if (!dropdownWrapper.current.contains(e.target)) {
       dropdownWrapper.current.style.zIndex = '999'
       setOpen(false)
     }
   }
 
-  const onItemSelectHandler = async (e) => {
+  const onItemSelectHandler = async (e: any) => {
     setOpen(false)
     switch (type) {
       case 'country':
@@ -106,8 +139,8 @@ const DropDown = (props) => {
         </div>
         {open && (
           <ul className="dropdown__list">
-            {!accesibleLocations.message ? (
-              accesibleLocations.map((location, index) => (
+            {!accessableLocations.message && accesibleLocations ? (
+              accesibleLocations.map((location: any, index: number) => (
                 <li key={index} className="list__item unselectable" onClick={onItemSelectHandler}>
                   {location[Object.keys(location)[0]]}
                 </li>
@@ -122,16 +155,22 @@ const DropDown = (props) => {
   )
 }
 
-const getStateToProps = ({ location, accessableLocations }) => ({ location, accessableLocations })
+const getStateToProps = ({
+  location,
+  accessableLocations,
+}: {
+  location: location
+  accessableLocations: accessableLocations
+}) => ({ location, accessableLocations })
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch: any) => {
   return {
-    setAccessableCities: (url) => dispatch(setAccessableCities(url)),
-    setAccessableStates: (url) => dispatch(setAccessableStates(url)),
-    setAccessableCountries: (url) => dispatch(setAccessableCountries(url)),
-    setCity: (city) => dispatch(setCity(city)),
-    setState: (state) => dispatch(setState(state)),
-    setCountry: (country) => dispatch(setCountry(country)),
+    setAccessableCities: (url: string) => dispatch(setAccessableCities(url)),
+    setAccessableStates: (url: string) => dispatch(setAccessableStates(url)),
+    setAccessableCountries: (url: string) => dispatch(setAccessableCountries(url)),
+    setCity: (city: string) => dispatch(setCity(city)),
+    setState: (state: string) => dispatch(setState(state)),
+    setCountry: (country: string) => dispatch(setCountry(country)),
   }
 }
 

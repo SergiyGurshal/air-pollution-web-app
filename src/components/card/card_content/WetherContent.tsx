@@ -1,16 +1,31 @@
-import React, { useEffect, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import loadingGif from '../../../images/loading.svg'
 
-import './card-content.css'
+const css = require('./card-content.css')
 
-const getIcon = (icon_type) => {
-  const gifTemplate = /.*.svg/
-  if (gifTemplate.exec(icon_type)) return icon_type
+interface IWeatherInfo {
+  ts: string
+  tp: number
+  pr: number
+  hu: number
+  ws: number
+  wd: number
+  ic: string
+}
+
+type WeatherContentProps = {
+  weatherInfo: IWeatherInfo
+}
+
+const getIcon = (icon_type: string) => {
+  const gifTemplate = /.*loading.*.svg/g
+  if (gifTemplate.test(icon_type)) return icon_type
+
   return require(`../../../images/weather_icons/${icon_type}.png`).default
 }
 
-const WeatherContent = ({ weatherInfo }) => {
+const WeatherContent: FC<WeatherContentProps> = ({ weatherInfo }: WeatherContentProps) => {
   const [image, setImage] = useState(loadingGif)
   const [temperature, setTemperature] = useState('loading...')
   const [pressure, setPressure] = useState('loading...')
@@ -18,17 +33,17 @@ const WeatherContent = ({ weatherInfo }) => {
   const [windSpeed, setWindSpeed] = useState('loading...')
   const [windDirection, setWindDirection] = useState('loading...')
 
-  const setWeatherInfo = (weatherInfo) => {
+  const setWeatherInfo = () => {
     if (weatherInfo.ic) setImage(weatherInfo.ic)
-    setTemperature(weatherInfo.tp)
-    setPressure(weatherInfo.pr)
-    setHumidity(weatherInfo.hu)
-    setWindSpeed(weatherInfo.ws)
-    setWindDirection(weatherInfo.wd)
+    setTemperature(weatherInfo.tp.toString())
+    setPressure(weatherInfo.pr.toString())
+    setHumidity(weatherInfo.hu.toString())
+    setWindSpeed(weatherInfo.ws.toString())
+    setWindDirection(weatherInfo.wd.toString())
   }
 
   useEffect(() => {
-    setWeatherInfo(weatherInfo)
+    setWeatherInfo()
   }, [weatherInfo])
 
   return (
@@ -45,6 +60,6 @@ const WeatherContent = ({ weatherInfo }) => {
   )
 }
 
-const getStateToProps = (state) => ({ weatherInfo: state.enviromentInfo.current.weather })
+const getStateToProps = (state: any) => ({ weatherInfo: state.enviromentInfo.current.weather })
 
 export default connect(getStateToProps)(WeatherContent)

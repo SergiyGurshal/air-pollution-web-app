@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { FC } from 'react'
 import DropDown from '../dropdown/DropDown'
 
-import './header.css'
 import logo from '../../images/logo/logo.svg'
 
-const Header = () => {
+const css = require('./header.css')
+
+const Header: FC = () => {
   return (
     <header className="header">
       <div className="header__container">

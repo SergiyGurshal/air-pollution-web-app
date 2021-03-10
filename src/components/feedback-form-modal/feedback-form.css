@@ -8,6 +8,7 @@
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.2);
+  z-index: 10000;
 }
 
 .feedback-form__wrapper {
@@ -70,6 +71,10 @@
 
 .feedback-form__submitbtn:active {
   background-color: rgba(0, 0, 0, 0.2);
+}
+
+.feedback-form__submitbtn:hover {
+  background-color: #f1f1f1;
 }
 
 @media only screen and (max-width: 950px) {

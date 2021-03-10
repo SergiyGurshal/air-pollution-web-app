@@ -1,15 +1,15 @@
 import { CHANGE_ACCESSABLE_STATES } from '../types'
 import axios from 'axios'
 
-const setAccessableStates = (listOfStates) => {
+const setAccessableStates = (listOfStates: string[]) => {
   return {
     type: CHANGE_ACCESSABLE_STATES,
     payload: listOfStates,
   }
 }
 
-export default function fetchEnviromentInfo(url) {
-  return async (dispatch) => {
+export default function fetchEnviromentInfo(url: string) {
+  return async (dispatch: any) => {
     if (url) {
       axios
         .get(url)

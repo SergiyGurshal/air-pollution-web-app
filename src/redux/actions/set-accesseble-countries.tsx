@@ -1,15 +1,15 @@
 import { CHANGE_ACCESSABLE_COUNTRIES } from '../types'
 import axios from 'axios'
 
-const setAccessableCountries = (listOfCountries) => {
+const setAccessableCountries = (listOfCountries: string[]) => {
   return {
     type: CHANGE_ACCESSABLE_COUNTRIES,
     payload: listOfCountries,
   }
 }
 
-export default function fetchEnviromentInfo(url) {
-  return async (dispatch) => {
+export default function fetchEnviromentInfo(url: string) {
+  return async (dispatch: any) => {
     axios
       .get(url)
       .then((response) => response.data.data)

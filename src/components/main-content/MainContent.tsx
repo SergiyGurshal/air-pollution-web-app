@@ -3,11 +3,17 @@ import { connect } from 'react-redux'
 import fetchEnviromentInfo from '../../redux/actions/set-enviroment-info'
 import Card from '../card/Card'
 
-import backgroundVideo from '../../images/background_video/water_wave_2.mp4'
+const backgroundVideo = require('../../images/background_video/water_wave_2.mp4')
 
-import './main-content.css'
+const css = require('./main-content.css')
 
-const MainContent = ({ location, fetchEnviromentInfo }) => {
+interface Ilocation {
+  country: string
+  state: string
+  city: string
+}
+
+const MainContent = ({ location, fetchEnviromentInfo }: { location: Ilocation; fetchEnviromentInfo: any }) => {
   useEffect(() => {
     if (location.city === 'Select...') {
       fetchEnviromentInfo('https://api.airvisual.com/v2/nearest_city?key=f2a437c2-fbc6-4858-b197-05eb662afb20')
@@ -29,11 +35,11 @@ const MainContent = ({ location, fetchEnviromentInfo }) => {
   )
 }
 
-const getStateToProps = (state) => ({ location: state.location })
+const getStateToProps = (state: any) => ({ location: state.location })
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch: any) => {
   return {
-    fetchEnviromentInfo: (url) => dispatch(fetchEnviromentInfo(url)),
+    fetchEnviromentInfo: (url: string) => dispatch(fetchEnviromentInfo(url)),
   }
 }
 

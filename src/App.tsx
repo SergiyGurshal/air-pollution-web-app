@@ -1,10 +1,11 @@
+import { FC } from 'react'
 import { Provider } from 'react-redux'
 import Footer from './components/footer/Footer'
 import Header from './components/header/Header'
 import MainContent from './components/main-content/MainContent'
 import store from './redux/store'
 
-function App() {
+const App: FC = () => {
   return (
     <Provider store={store}>
       <div className="App">

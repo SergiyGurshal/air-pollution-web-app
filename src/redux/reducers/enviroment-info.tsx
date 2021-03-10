@@ -2,6 +2,25 @@ import { SET_ENVIROMENT_INFO } from '../types'
 
 const PLACEHOLDER = 'loading...'
 
+interface action {
+  type: string
+  payload: {
+    current: {
+      weather: {
+        tp: string
+        pr: string
+        hu: string
+        ws: string
+        wd: string
+      }
+      pollution: {
+        aqius: string
+        aqicn: string
+      }
+    }
+  }
+}
+
 const initialState = {
   current: {
     weather: {
@@ -18,7 +37,7 @@ const initialState = {
   },
 }
 
-export default function enviromentInfo(state = initialState, action) {
+export default function enviromentInfo(state = initialState, action: action) {
   if (action.type === SET_ENVIROMENT_INFO) {
     return action.payload
   } else {
